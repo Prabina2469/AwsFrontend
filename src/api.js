@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "https://jvburzmlkd.execute-api.us-east-1.amazonaws.com/";
+// const API_URL = "https://jvburzmlkd.execute-api.us-east-1.amazonaws.com/";
+const API_URL = "https://bxi75ee2e6.execute-api.us-east-1.amazonaws.com/";
 
 export const getTodos = () => axios.get(API_URL);
 export const addTodo = (todo) => axios.post(API_URL, todo);
