@@ -1,23 +1,20 @@
 import React from "react";
+import TodoItem from "./TodoItem";
 
-const TodoList = ({ todos, updateTodo, deleteTodo }) => {
-  return (
-    <div className="todo-list">
+function TodoList({ todos, onToggle, onDelete }) {
+ return (
+    <ul>
       {todos.map((todo) => (
-        <div key={todo.id} className="todo-item">
-          <span>{todo.text}</span>
-
-          <button className="edit-btn" onClick={() => updateTodo(todo.id, { text: prompt("Edit:", todo.text) })}>
-            Edit
-          </button>
-
-          <button className="delete-btn" onClick={() => deleteTodo(todo.id)}>
-            Delete
-          </button>
-        </div>
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+          onToggle={onToggle}
+          onDelete={onDelete}
+        />
       ))}
-    </div>
+    </ul>
   );
-};
+}
 
 export default TodoList;
+

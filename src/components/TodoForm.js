@@ -1,27 +1,26 @@
 import React, { useState } from "react";
 
-const TodoForm = ({ addTodo }) => {
-  const [text, setText] = useState("");
+function TodoForm({ onAdd }) {
+  const [title, setTitle] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!text.trim()) return;
-    addTodo({ text });
-    setText("");
+    if (!title.trim()) return;
+    onAdd({ title, completed: false });
+    setTitle("");
   };
 
   return (
-    <form onSubmit={handleSubmit} className="todo-form">
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Add a new todo..."
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        className="todo-input"
+        placeholder="Add new todo"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
       />
-      <button className="add-btn">Add</button>
+      <button type="submit">Add</button>
     </form>
   );
-};
+}
 
 export default TodoForm;
