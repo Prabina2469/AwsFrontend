@@ -1,25 +1,94 @@
-.App {
+/* Main Layout */
+.app-container {
   max-width: 500px;
   margin: 40px auto;
-  background: #f7f9fa;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  text-align: center;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  font-family: "Poppins", sans-serif;
 }
 
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* TodoForm */
 .todo-form {
   display: flex;
   gap: 10px;
-  justify-content: center;
+  margin-bottom: 20px;
 }
 
+.todo-form input {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.todo-form input:focus {
+  border-color: #6c63ff;
+  outline: none;
+}
+
+.todo-form button {
+  padding: 12px 20px;
+  background: #6c63ff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.todo-form button:hover {
+  background: #584fe0;
+}
+
+/* Todo List */
+.todo-list {
+  list-style: none;
+  padding: 0;
+}
+
+/* Todo Item */
 .todo-item {
   display: flex;
   justify-content: space-between;
-  background: white;
-  margin: 5px 0;
-  padding: 8px;
-  border-radius: 6px;
   align-items: center;
+  padding: 14px;
+  background: #f8f8ff;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  transition: 0.2s;
+  border-left: 4px solid #6c63ff;
+}
+
+.todo-item.completed {
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+
+.todo-item:hover {
+  background: #f0f0ff;
+}
+
+/* Delete button */
+.delete-btn {
+  padding: 6px 12px;
+  background: #ff4f4f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.delete-btn:hover {
+  background: #e63939;
 }

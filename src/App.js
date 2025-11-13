@@ -1,44 +1,41 @@
 import React, { useEffect, useState } from "react";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
-import { getTodos, addTodo, updateTodo, deleteTodo } from "./api";
+import { getTodos, addTodo, updateTodo, deleteTodo }
+
+ from "./api";
 
 function App() {
   const [todos, setTodos] = useState([]);
 
-  const loadTodos = async () => {
-    try {
-      const res = await getTodos();
-      setTodos(res.data);
-    } catch (err) {
-      console.error("Error loading todos:", err);
-    }
-  };
-
   useEffect(() => {
-    loadTodos();
+    getTodos().then((res) => setTodos(res.data));
   }, []);
 
-  const handleAdd = async (newTodo) => {
-    await addTodo(newTodo);
-    loadTodos();
+  const handleAddTodo = async (todo) => {
+    const res = await addTodo(todo);
+    setTodos([...todos, res.data]);
   };
 
-  const handleToggle = async (id, updatedTodo) => {
-    await updateTodo(id, updatedTodo);
-    loadTodos();
+  const handleUpdateTodo = async (id, updated) => {
+    const res = await updateTodo(id, updated);
+    setTodos(todos.map((t) => (t.id === id ? res.data : t)));
   };
 
-  const handleDelete = async (id) => {
+  const handleDeleteTodo = async (id) => {
     await deleteTodo(id);
-    loadTodos();
+    setTodos(todos.filter((t) => t.id !== id));
   };
 
   return (
-    <div className="App">
-      <h1>My Todo App</h1>
-      <TodoForm onAdd={handleAdd} />
-      <TodoList todos={todos} onToggle={handleToggle} onDelete={handleDelete} />
+    <div className="container">
+      <h1>My Stylish Todo App ✨</h1>
+      <TodoForm addTodo={handleAddTodo} />
+      <TodoList
+        todos={todos}
+        updateTodo={handleUpdateTodo}
+        deleteTodo={handleDeleteTodo}
+      />
     </div>
   );
 }
