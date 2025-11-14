@@ -19,13 +19,13 @@ function App() {
     loadTodos();
   }, []);
 
-  const handleAdd = async (newTodo) => {
-    await addTodo(newTodo);
+  const handleAdd = async (todo) => {
+    await addTodo(todo);
     loadTodos();
   };
 
-  const handleToggle = async (id, updatedTodo) => {
-    await updateTodo(id, updatedTodo);
+  const handleToggle = async (id, updated) => {
+    await updateTodo(id, updated);
     loadTodos();
   };
 
@@ -35,10 +35,15 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1>My Todo App</h1>
-      <TodoForm onAdd={handleAdd} />
-      <TodoList todos={todos} onToggle={handleToggle} onDelete={handleDelete} />
+    <div className="min-h-screen flex justify-center items-center bg-gray-100 p-6">
+      <div className="w-full max-w-lg bg-white rounded-2xl shadow-xl p-6">
+        <h1 className="text-2xl font-semibold text-center mb-4">
+          My Todo App
+        </h1>
+
+        <TodoForm onAdd={handleAdd} />
+        <TodoList todos={todos} onToggle={handleToggle} onDelete={handleDelete} />
+      </div>
     </div>
   );
 }
