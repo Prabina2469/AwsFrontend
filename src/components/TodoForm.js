@@ -12,16 +12,19 @@ function TodoForm({ onAdd }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="todo-form">
+    <form onSubmit={handleSubmit} className="flex gap-3 mb-4">
       <input
         type="text"
         placeholder="Add new todo..."
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="todo-input"
+        className="flex-1 border rounded-lg px-3 py-2 focus:ring focus:ring-blue-200"
       />
 
-      <button className="add-btn" type="submit">
+      <button
+        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+        type="submit"
+      >
         Add
       </button>
     </form>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import { getTodos, addTodo, updateTodo, deleteTodo } from "./api";
-import "./index.css";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -36,10 +35,11 @@ function App() {
   };
 
   return (
-    <div className="app-center">
-      <div className="todo-card">
-        <h1 className="todo-title">My Todo App</h1>
-        <p className="todo-sub">Manage your tasks easily</p>
+    <div className="min-h-screen flex justify-center items-center bg-gray-100 p-6">
+      <div className="w-full max-w-lg bg-white rounded-2xl shadow-xl p-6">
+        <h1 className="text-2xl font-semibold text-center mb-4">
+          My Todo App
+        </h1>
 
         <TodoForm onAdd={handleAdd} />
         <TodoList todos={todos} onToggle={handleToggle} onDelete={handleDelete} />
