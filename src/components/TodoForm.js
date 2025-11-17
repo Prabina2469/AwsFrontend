@@ -1,28 +1,30 @@
 import React, { useState } from "react";
 
-function TodoForm({ onAdd, subtitle }) {
+function TodoForm({ onAdd }) {
   const [title, setTitle] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const trimmed = title.trim();
-    if (!trimmed) return;
-    onAdd({ title: trimmed, completed: false });
+    if (!title.trim()) return;
+
+    onAdd({ title, completed: false });
     setTitle("");
   };
 
   return (
-   <form onSubmit={handleSubmit} className="todo-form">
-  <input
-    className="todo-input"
-    type="text"
-    placeholder="Enter a task..."
-    value={title}
-    onChange={(e) => setTitle(e.target.value)}
-  />
+    <form onSubmit={handleSubmit} className="todo-form">
+      <input
+        type="text"
+        placeholder="Add new todo..."
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        className="todo-input"
+      />
 
-  <button className="add-circle">Add</button>
-</form>
+      <button className="add-btn" type="submit">
+        Add
+      </button>
+    </form>
   );
 }
 

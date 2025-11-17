@@ -1,35 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
-import "./index.css"; // your CSS with .app-root .todo-card etc.
+import { getTodos, addTodo, updateTodo, deleteTodo } from "./api";
+import "./index.css";
 
-export default function App() {
+function App() {
   const [todos, setTodos] = useState([]);
 
-  // Add new todo (client-side)
-  const handleAdd = (todo) => {
-    const newTodo = { ...todo, id: Date.now() + Math.floor(Math.random() * 1000) };
-    setTodos((prev) => [newTodo, ...prev]);
-    console.log("Added:", newTodo);
+  const loadTodos = async () => {
+    try {
+      const res = await getTodos();
+      setTodos(res.data);
+    } catch (err) {
+      console.error("Error loading todos:", err);
+    }
   };
 
-  // Toggle completed
-  const handleToggle = (id) => {
-    setTodos((prev) => prev.map(t => (t.id === id ? { ...t, completed: !t.completed } : t)));
-    console.log("Toggled:", id);
+  useEffect(() => {
+    loadTodos();
+  }, []);
+
+  const handleAdd = async (todo) => {
+    await addTodo(todo);
+    loadTodos();
   };
 
-  // Delete
-  const handleDelete = (id) => {
-    setTodos((prev) => prev.filter(t => t.id !== id));
-    console.log("Deleted:", id);
+  const handleToggle = async (id, updated) => {
+    await updateTodo(id, updated);
+    loadTodos();
+  };
+
+  const handleDelete = async (id) => {
+    await deleteTodo(id);
+    loadTodos();
   };
 
   return (
-    <div className="app-root">
-      <div className="todo-card" role="main">
-        <h1 className="todo-title">My To-Do List</h1>
-        <p className="todo-subtitle">Manage your tasks easily</p>
+    <div className="app-center">
+      <div className="todo-card">
+        <h1 className="todo-title">My Todo App</h1>
+        <p className="todo-sub">Manage your tasks easily</p>
 
         <TodoForm onAdd={handleAdd} />
         <TodoList todos={todos} onToggle={handleToggle} onDelete={handleDelete} />
@@ -37,3 +47,5 @@ export default function App() {
     </div>
   );
 }
+
+export default App;
