@@ -1,45 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
-import { getTodos, addTodo, updateTodo, deleteTodo } from "./api";
+import "./index.css"; // your CSS with .app-root .todo-card etc.
 
-function App() {
+export default function App() {
   const [todos, setTodos] = useState([]);
 
-  const loadTodos = async () => {
-    try {
-      const res = await getTodos();
-      setTodos(res.data);
-    } catch (err) {
-      console.error("Error loading todos:", err);
-    }
+  // Add new todo (client-side)
+  const handleAdd = (todo) => {
+    const newTodo = { ...todo, id: Date.now() + Math.floor(Math.random() * 1000) };
+    setTodos((prev) => [newTodo, ...prev]);
+    console.log("Added:", newTodo);
   };
 
-  useEffect(() => {
-    loadTodos();
-  }, []);
-
-  const handleAdd = async (todo) => {
-    await addTodo(todo);
-    loadTodos();
+  // Toggle completed
+  const handleToggle = (id) => {
+    setTodos((prev) => prev.map(t => (t.id === id ? { ...t, completed: !t.completed } : t)));
+    console.log("Toggled:", id);
   };
 
-  const handleToggle = async (id, updated) => {
-    await updateTodo(id, updated);
-    loadTodos();
-  };
-
-  const handleDelete = async (id) => {
-    await deleteTodo(id);
-    loadTodos();
+  // Delete
+  const handleDelete = (id) => {
+    setTodos((prev) => prev.filter(t => t.id !== id));
+    console.log("Deleted:", id);
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100 p-6">
-      <div className="w-full max-w-lg bg-white rounded-2xl shadow-xl p-6">
-        <h1 className="text-2xl font-semibold text-center mb-4">
-          My Todo App
-        </h1>
+    <div className="app-root">
+      <div className="todo-card" role="main">
+        <h1 className="todo-title">My To-Do List</h1>
+        <p className="todo-subtitle">Manage your tasks easily</p>
 
         <TodoForm onAdd={handleAdd} />
         <TodoList todos={todos} onToggle={handleToggle} onDelete={handleDelete} />
@@ -47,5 +37,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
