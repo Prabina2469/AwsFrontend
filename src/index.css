@@ -1,198 +1,194 @@
-/* ===== Global / page ===== */
-:root{
-  --bg: #f3f4f6;
-  --card-bg: #ffffff;
-  --muted: #6b7280;
-  --title: #0f172a;
-  --pill: #f1f5f9;
-  --accent: #2563eb;
-  --danger: #dc2626;
-  --border: #e5e7eb;
-  --shadow: 0 10px 30px rgba(15,23,42,0.06);
-  --radius-lg: 14px;
+/* GLOBAL RESET */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Inter, Arial, sans-serif;
+  background: #eef1f6;
+  -webkit-font-smoothing: antialiased;
 }
 
-*{box-sizing:border-box}
-html,body,#root{height:100%}
-body{
-  margin:0;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background:var(--bg);
-  color:var(--title);
-  -webkit-font-smoothing:antialiased;
+/* MAIN APP WRAPPER (matches: min-h-screen flex justify-center items-center bg-gray-100 p-6) */
+.min-h-screen {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
 }
 
-/* center page */
-.app-center {
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:48px 18px;
+/* CARD (matches: w-full max-w-lg bg-white rounded-2xl shadow-xl p-6) */
+.w-full.max-w-lg {
+  width: 100%;
+  max-width: 700px;
+  background: #ffffff;
+  padding: 28px;
+  border-radius: 20px;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.08);
+  border: 1px solid #edf0f3;
 }
 
-/* card */
-.todo-card {
-  width:100%;
-  max-width:720px;
-  background:var(--card-bg);
-  border-radius:var(--radius-lg);
-  padding:32px;
-  box-shadow:var(--shadow);
+/* HEADER */
+h1.text-2xl {
+  font-size: 28px;
+  font-weight: 800;
+  text-align: center;
+  color: #0f172a;
+  margin: 0 0 20px 0;
 }
 
-/* header */
-.todo-title {
-  font-size:28px;
-  font-weight:800;
-  margin:0 0 6px 0;
-  color:var(--title);
-  text-align:center;
-}
-.todo-sub {
-  margin:0 0 18px 0;
-  color:var(--muted);
-  font-size:13px;
-  text-align:center;
+/* FORM (matches: form.flex.gap-3.mb-4) */
+form.flex {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
 }
 
-/* form layout */
-.todo-form {
-  display:flex;
-  gap:12px;
-  align-items:center;
-  justify-content:center;
-  margin-bottom:18px;
+/* INPUT (matches: flex-1 border rounded-lg px-3 py-2 focus:ring...) */
+input.flex-1 {
+  flex: 1;
+  padding: 12px 14px;
+  font-size: 15px;
+  border-radius: 10px;
+  border: 1px solid #d4d7dd;
+  background: #ffffff;
+  transition: 0.2s ease;
 }
 
-/* input */
-.todo-input {
-  flex:1;
-  max-width:520px;
-  padding:12px 14px;
-  border-radius:10px;
-  border:1px solid var(--border);
-  outline:none;
-  font-size:15px;
-  background: #fff;
-  transition: box-shadow .15s ease, border-color .12s ease, transform .08s ease;
-}
-.todo-input::placeholder{ color:#9ca3af; }
-.todo-input:focus{
-  border-color: rgba(37,99,235,0.35);
-  box-shadow: 0 6px 18px rgba(37,99,235,0.08);
-  transform: translateY(-1px);
+input.flex-1:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37,99,235,0.18);
+  outline: none;
 }
 
-/* add button (pill/circle style) */
-.add-btn {
-  min-width:48px;
-  height:48px;
-  border-radius:50%;
-  border:2px solid #374151;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  background:transparent;
-  cursor:pointer;
-  font-weight:700;
-  padding:0 12px;
-  position:relative;
-  overflow:hidden;
-  transition: transform .12s ease;
+/* ADD BUTTON (matches: bg-blue-600 text-white px-4 py-2 rounded-lg) */
+button.bg-blue-600 {
+  background: #2563eb;
+  color: white;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: 0.15s ease-in-out;
+  box-shadow: 0 6px 14px rgba(37,99,235,0.22);
 }
 
-/* overlay effect */
-.add-btn::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.12);
-  opacity:0;
-  transition:opacity .18s ease;
-  border-radius:inherit;
-}
-.add-btn:hover::after,
-.add-btn:active::after{ opacity:1; }
-.add-btn:active{ transform:scale(.98); }
-
-/* optional small text next to button */
-.add-subtext { font-weight:600; color:var(--title); font-size:13px; margin-left:6px; }
-
-/* list */
-.todo-list { display:flex; flex-direction:column; gap:12px; margin-top:6px; padding:0; list-style:none; }
-
-/* item pill */
-.todo-item {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:12px 14px;
-  border-radius:10px;
-  background:var(--pill);
-  box-shadow: 0 2px 6px rgba(2,6,23,0.03);
+button.bg-blue-600:hover {
+  background: #1e4fcc;
+  transform: translateY(-2px);
 }
 
-/* left section (checkbox + text) */
-.todo-left { display:flex; align-items:center; gap:12px; cursor:pointer; flex:1; }
-
-/* checkbox */
-.todo-checkbox {
-  width:18px; height:18px;
-  border-radius:4px;
-  border:1px solid var(--border);
-  display:inline-block;
-  position:relative;
-  background:#fff;
+button.bg-blue-600:active {
+  transform: scale(0.98);
 }
 
-/* checked state (small indicator) */
-.todo-checkbox.checked{
-  background:var(--accent);
-  border-color:var(--accent);
-}
-.todo-checkbox.checked::after{
-  content:"";
-  position:absolute;
-  left:4px; top:2px;
-  width:5px; height:9px;
-  border:2px solid #fff;
-  border-left:0;
-  border-top:0;
-  transform:rotate(35deg);
+/* LIST WRAPPER (matches: ul.space-y-2) */
+ul.space-y-2 {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
-/* text */
-.todo-text { font-size:15px; color:var(--title); display:inline-block; word-break:break-word; }
-.todo-text.done { text-decoration:line-through; color:#9aa3ad; }
-
-/* delete button */
-.delete-btn {
-  background:transparent;
-  border:1px solid rgba(220,38,38,0.15);
-  color:var(--danger);
-  padding:6px 10px;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:600;
-  transition: transform .08s ease, background .12s ease;
-}
-.delete-btn:hover { transform:translateY(-2px); background: rgba(220,38,38,0.03); }
-
-/* empty state */
-.empty-note {
-  text-align:center;
-  color:#8b94a6;
-  font-size:14px;
-  padding:12px;
-  background:transparent;
-  border-radius:8px;
+/* TODO ITEM (matches your li classes) */
+li.flex.items-center {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #e2e5e9;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  transition: 0.15s ease;
 }
 
-/* responsive */
-@media (max-width:560px){
-  .todo-card{ padding:20px; }
-  .todo-input{ max-width:260px; }
-  .add-subtext{ display:none; }
+li.flex.items-center:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.06);
+}
+
+/* LEFT SIDE (checkbox + text) */
+li .flex.items-center.gap-3 {
+  display: flex;
+  gap: 12px;
+  cursor: pointer;
+}
+
+/* CHECKBOX (matches: input.w-5.h-5) */
+input.w-5.h-5 {
+  width: 20px;
+  height: 20px;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 4px;
+  border: 2px solid #cdd2d8;
+  background: white;
+  cursor: pointer;
+  position: relative;
+  transition: 0.2s;
+}
+
+input.w-5.h-5:checked {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+input.w-5.h-5:checked::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+/* TODO TEXT (matches: text-lg + completed style) */
+span.text-lg {
+  font-size: 16px;
+  color: #1f2937;
+  font-weight: 500;
+}
+
+span.line-through.text-gray-400 {
+  color: #9ca3af !important;
+  text-decoration: line-through;
+}
+
+/* DELETE button */
+button.text-red-600 {
+  background: #ffe6e6;
+  border: 1px solid #f3b3b3;
+  color: #dc2626;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.15s ease;
+  font-weight: 600;
+}
+
+button.text-red-600:hover {
+  background: #ffcdcd;
+  transform: translateY(-2px);
+}
+
+/* MOBILE */
+@media (max-width: 520px) {
+  .w-full.max-w-lg {
+    padding: 20px;
+  }
+  input.flex-1 {
+    font-size: 14px;
+  }
+  button.bg-blue-600 {
+    padding: 8px 14px;
+  }
 }
